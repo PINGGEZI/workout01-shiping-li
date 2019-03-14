@@ -1,4 +1,18 @@
 
+## ---------------------------
+##
+## title: make-shot-data
+##
+## ---------------------------
+## description:This file import the data of 4 players,and export text files of the summary 
+## of player repectively. Beside, a table of 4 players is created and it's summery 
+## text file is also exported.
+##
+## inputs:import csv files of 4 players by read.csv.
+##   
+## outpt: 1 csv file of 4 players, and 5 summary text files of 4 players.
+## ---------------------------
+
 
 curry <- read.csv("/Users/shixinli/Desktop/ucb/stat133/workout/workout01/data/stephen-curry.csv", stringsAsFactors = FALSE)
 green <- read.csv("/Users/shixinli/Desktop/ucb/stat133/workout/workout01/data/draymond-green.csv",stringsAsFactors = FALSE)
@@ -50,7 +64,10 @@ sink("/Users/shixinli/Desktop/ucb/stat133/workout/workout01/output/klay-thompson
 summary(thompson)
 sink()
 
+rebind_file <- rbind(curry,iguodala,green,durant,thompson)
+write.table(rebind_file,file = "/Users/shixinli/Desktop/ucb/stat133/workout/workout01/data/shots-data.csv")
 
-
-
+sink("/Users/shixinli/Desktop/ucb/stat133/workout/workout01/output/shots-data-summary.txt")
+summary(rebind_file)
+sink()
 
