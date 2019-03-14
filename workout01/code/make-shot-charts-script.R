@@ -12,7 +12,6 @@
 ## ---------------------------
 library(ggplot2)
 library(jpeg)
-library(png)
 library(grid)
 
 
@@ -22,28 +21,38 @@ iguodala <- read.csv("/Users/shixinli/Desktop/ucb/stat133/workout/workout01/data
 durant <- read.csv("/Users/shixinli/Desktop/ucb/stat133/workout/workout01/data/kevin-durant.csv",stringsAsFactors = FALSE)
 thompson <- read.csv("/Users/shixinli/Desktop/ucb/stat133/workout/workout01/data/klay-thompson.csv",stringsAsFactors = FALSE)
 
-cy_scatterplot <- ggplot(data = curry) + geom_point(aes(x = x, y = y, color = shot_made_flag))
-cy_scatterplot
 
 
 court_file <- "/Users/shixinli/Desktop/ucb/stat133/workout/workout01/images/nba-court.jpg"
 # create raste object
+court_image <- rasterGrob( readJPEG(court_file), width = unit(1, "npc"), height = unit(1, "npc"))
 
-court_image <- rasterGrob(readJPEG(court_file), width = unit(1, "npc"), height = unit(1, "npc"))
-thompson_shot_chart <- ggplot(data = thompson) + annotation_custom(court_image, -250, 250, -50, 420) + geom_point(aes(x = x, y = y, color = shot_made_flag)) + ylim(-50, 420) +
+pdf("/Users/shixinli/Desktop/ucb/stat133/workout/workout01/images/klay-thompson-shot-chart.pdf", width=6.5, height=5)
+ggplot(data = thompson) + annotation_custom(court_image, -250, 250, -50, 420) + geom_point(aes(x = x, y = y, color = shot_made_flag)) + ylim(-50, 420) +
   ggtitle('Shot Chart: Klay Thompson (2016 season)') + theme_minimal()
+dev.off()
 
-durant_shot_chart <- ggplot(data = durant) + annotation_custom(court_image, -250, 250, -50, 420) + geom_point(aes(x = x, y = y, color = shot_made_flag)) + ylim(-50, 420) +
+pdf("/Users/shixinli/Desktop/ucb/stat133/workout/workout01/images/kevin-durant-shot-chart.pdf", width=6.5, height=5)
+ ggplot(data = durant) + annotation_custom(court_image, -250, 250, -50, 420) + geom_point(aes(x = x, y = y, color = shot_made_flag)) + ylim(-50, 420) +
   ggtitle('Shot Chart: kevin durant (2016 season)') + theme_minimal()
- 
-iguodala_shot_chart <- ggplot(data = durant) + annotation_custom(court_image, -250, 250, -50, 420) + geom_point(aes(x = x, y = y, color = shot_made_flag)) + ylim(-50, 420) +
+dev.off()
+
+
+pdf("/Users/shixinli/Desktop/ucb/stat133/workout/workout01/images/andre-iguodala-shot-chart.pdf", width=6.5, height=5)
+ggplot(data = iguodala) + annotation_custom(court_image, -250, 250, -50, 420) + geom_point(aes(x = x, y = y, color = shot_made_flag)) + ylim(-50, 420) +
   ggtitle('Shot Chart: andre iguodala (2016 season)') + theme_minimal()
+dev.off()
 
-green_shot_chart <- ggplot(data = durant) + annotation_custom(court_image, -250, 250, -50, 420) + geom_point(aes(x = x, y = y, color = shot_made_flag)) + ylim(-50, 420) +
+pdf("/Users/shixinli/Desktop/ucb/stat133/workout/workout01/images/draymond-green-shot-chart.pdf", width=6.5, height=5)
+ ggplot(data = green) + annotation_custom(court_image, -250, 250, -50, 420) + geom_point(aes(x = x, y = y, color = shot_made_flag)) + ylim(-50, 420) +
   ggtitle('Shot Chart: draymond green (2016 season)') + theme_minimal()
+dev.off()
 
-curry_shot_chart <- ggplot(data = durant) + annotation_custom(court_image, -250, 250, -50, 420) + geom_point(aes(x = x, y = y, color = shot_made_flag)) + ylim(-50, 420) +
+pdf("/Users/shixinli/Desktop/ucb/stat133/workout/workout01/images/stephen-curry-shot-chart.pdf", width=60, height=50)
+ ggplot(data = curry) + annotation_custom(court_image, -250, 250, -50, 420) + geom_point(aes(x = x, y = y, color = shot_made_flag)) + ylim(-50, 420) +
   ggtitle('Shot Chart: stephen curry (2016 season)') + theme_minimal()
+dev.off()
+
 
 
 
