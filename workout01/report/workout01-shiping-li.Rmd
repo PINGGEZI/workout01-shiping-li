@@ -6,23 +6,100 @@ output: github_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::include_graphics('../images/gsw-shot-chart.pdf')
 ```
+## 5) Report
+#### 5.1) Effective Shooting Percentage
+```{r}
+library(dplyr)
+shots_data <- read.csv("../data/shots-data.csv", stringsAsFactors = FALSE)
+# 2PT Effective Shooting % by Player
+shots_data[shots_data$shot_type=="2PT Field Goal",] %>%
+  group_by(name) %>%
+  summarise(total = n(),
+            made = sum(shot_made_flag=="shot_yes")) %>%
+  mutate(perc_made = made/total) %>%
+  arrange(desc(perc_made))
+
+# 3PT Effective Shooting % by Player
+shots_data[shots_data$shot_type=="3PT Field Goal",] %>%
+  group_by(name) %>%
+  summarise(total = n(),
+            made = sum(shot_made_flag == "shot_yes")) %>%
+  mutate(perc_made = made/total)%>%
+  arrange(desc(perc_made))
+  
+# Effective Shooting % by Player:
+shots_data %>%
+  group_by(name) %>%
+  summarise(total = n(),
+            made = sum(shot_made_flag=="shot_yes")) %>%
+  mutate(perc_made = made/total) %>%
+  arrange(desc(perc_made))
+```  
+
+#### 5.2) Narrative
+#####Background
+The Golden State Warriors entered the 2015-16 season as a rare breed -- defending champions with 
+a chip on their shoulders.The team set a regular-season record with 73 wins with the NBA’s first 
+unanimous MVP only to blow a 3-1 lead in the 2016 NBA Finals. Many factors all together determined the 
+excellent performance of Golden State Warriors in Season 2016[1].
+The report will focus on analyzing shots made Andre Iguodala, Draymond Green, Kevin Duran, Klay Thompson, and Stephen Curry in Season 2016 and find out how the Golden State Warriors created such a astonishing record.
+
+
+###### Data and Analysis
+The data frame "shots_data" inclues details of shot attempts by the five players in differnt periods, and as well wheather they made the shot successfully or not,by what action types and from what field goals. Moreover, the shot distance and the court coordinates are also given in the data frame.   
 
 ```{r}
-
-shotsdata <- read.csv('../data/shots-data.csv')
-shotsdata$name <- ''
-shotsdata$name[1:371] <- "Iguodala"
-shotsdata$name[372:949] <- "Green"
-shotsdata$name[950:1864] <- "Durant"
-shotsdata$name[1865:3084] <- "Thompson"
-shotsdata$name[3085:nrow(shotsdata)] <- "Curry"
-
-total_shots_by_player <- shotsdata %>%
-group_by(name) %>%
-select(name) %>%
-summarise(total = n()) %>%
-arrange(desc(total))
-total_shots_by_player
-
+knitr::include_graphics('../images/gsw-shot-chart.pdf')
 ```
+
+**2PT Effective Shooting Percentage by Player:**
+```{r echo=FALSE}
+knitr::include_graphics('../images/gsw-shot-chart.pdf')
+shots_data <- read.csv("../data/shots-data.csv", stringsAsFactors = FALSE)
+# 2PT Effective Shooting % by Player:
+shots_data[shots_data$shot_type=="2PT Field Goal",] %>%
+  group_by(name) %>%
+  summarise(total = n(),
+            made = sum(shot_made_flag=="shot_yes")) %>%
+  mutate(perc_made = made/total) %>%
+  arrange(desc(perc_made))
+```  
+From the 2PT effective shooting percentage by player, Kevin Durant and Klay Thompson are the two players who attempted to make the most 2-point shots. Even though their total shots were almostly the same, the number of made shots of Kevin Durant (390) were much higher than that of Klay Thompson (329).Moreover,Andre Iguodala made the least attempts of 2-point shots,yet he had highest success shot percentage.
+
+**3PT Effective Shooting Percentage by Player:**
+```{r echo=FALSE}
+# 3PT Effective Shooting % by Player:
+shots_data[shots_data$shot_type=="3PT Field Goal",] %>%
+  group_by(name) %>%
+  summarise(total = n(),
+            made = sum(shot_made_flag=="shot_yes")) %>%
+  mutate(perc_made = made/total) %>%
+  arrange(desc(perc_made))
+```  
+From the 3PT effective shooting percentage by player,Stephen Curry made the most total shots with the second highest success shot percentage while Klay Thompson made the second most total shots and got the highest success shot percentage.
+
+**Effective Shooting Percentage by Player:**
+```{r echo=FALSE}
+# Effective Shooting % by Player:
+shots_data %>%
+  group_by(name) %>%
+  summarise(total = n(),
+            made = sum(shot_made_flag=="shot_yes")) %>%
+  mutate(perc_made = made/total) %>%
+  arrange(desc(perc_made))
+```  
+From the total effective shooting percentage by player, Kaly Thompson and Stephen Curry made the most total shots over 1200 among five player,and both of them got a standout success shot percentage, which are 0.4713115	and 0.4672000 respectively. However, Kevin Durant made lower than 1000 total shot with the hightest success percentage 0.5409836.	 
+
+######Discussion and Conclusion
+Overall, all of these five players had really good performance in 2016 season.The success of Golden State Warriors was largely determined by the high shot effectiveness of these key players.
+
+
+######References
+
+![1] https://basketball-reference.com/teams/GSW/2017.html
+
+![2] "Purdy: Put a pause on the dynasty talk–and just enjoy this Warriors title". Mercury News. Retrieved June 12, 2017.  
+
+

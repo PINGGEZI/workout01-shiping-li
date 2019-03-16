@@ -20,6 +20,12 @@ iguodala <- read.csv("/Users/shixinli/Desktop/ucb/stat133/workout/workout01/data
 durant <- read.csv("/Users/shixinli/Desktop/ucb/stat133/workout/workout01/data/kevin-durant.csv",stringsAsFactors = FALSE)
 thompson <- read.csv("/Users/shixinli/Desktop/ucb/stat133/workout/workout01/data/klay-thompson.csv",stringsAsFactors = FALSE)
 
+iguodala['name'] = 'Andre Iguodala'
+green['name'] = 'Draymond Green'
+durant['name'] = 'Kevin Durant'
+thompson['name'] = 'Klay Thompson'
+curry['name'] = 'Stephen Curry'
+
 curry$shot_made_flag[curry$shot_made_flag == 'n'] <- "shot_no"
 curry$shot_made_flag[curry$shot_made_flag == 'y'] <- "shot_yes"
 
